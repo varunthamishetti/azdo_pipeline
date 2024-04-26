@@ -25,12 +25,11 @@ stages:
         packageType: 'sdk'
         version: '9.0.100-preview.3.24204.13'
         installationPath: $(Agent.ToolsDirectory)/dotnet
-
     - script: |
         cd $(Agent.BuildDirectory)/s/dotnet
         dotnet restore
-    - script: dotnet build --configuration Release --project $(Agent.BuildDirectory)/s/dotnet/DotNetCoreApp.csproj
-    - script: dotnet run --project $(Agent.BuildDirectory)/s/dotnet/DotNetCoreApp.csproj
+        dotnet build --configuration Release --project DotNetCoreApp.csproj
+        dotnet run --project DotNetCoreApp.csproj
 
 - stage: NodeBuild
   displayName: 'Build and Run Node.js'
