@@ -1,0 +1,53 @@
+trigger:
+- main
+
+stages:
+- stage: DotNetBuild
+  displayName: 'Build and Run .NET Core'
+  jobs:
+  - job: DotNetBuild
+    displayName: 'Build and Run'
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '3.1.x'
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+    - script: dotnet restore
+    - script: dotnet build --configuration Release
+    - script: dotnet run --project dotnet/DotNetCoreApp.csproj
+
+- stage: NodeBuild
+  displayName: 'Build and Run Node.js'
+  jobs:
+  - job: NodeBuild
+    displayName: 'Build and Run'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '14.x'
+    - script: npm install
+    - script: npm run build
+    - script: node node/server.js
+
+- stage: JavaBuild
+  displayName: 'Build and Run Java'
+  jobs:
+  - job: JavaBuild
+    displayName: 'Build and Run'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: UseJavaVersion@1
+      inputs:
+        version: '14'
+        architecture: 'x64'
+        jdkSourceOption: 'PreInstalled'
+    - script: javac -version
+    - script: javac -d java/out java/HelloWorld.java
+    - script: java -cp java/out HelloWorld
+
