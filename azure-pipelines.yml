@@ -28,8 +28,8 @@ stages:
     - script: |
         cd $(Agent.BuildDirectory)/s/dotnet
         dotnet restore
-        dotnet build --configuration Release --project DotNetCoreApp.csproj
-        dotnet run --project DotNetCoreApp.csproj
+        dotnet build --configuration Release --project $(Agent.BuildDirectory)/s/dotnet/DotNetCoreApp.csproj
+        dotnet run --project $(Agent.BuildDirectory)/s/dotnet/DotNetCoreApp.csproj
 
 - stage: NodeBuild
   displayName: 'Build and Run Node.js'
