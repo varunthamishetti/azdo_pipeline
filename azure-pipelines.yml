@@ -10,7 +10,7 @@ stages:
     pool: myselfagent
     steps:
     - script: |
-        cd $(Build.SourcesDirectory)/
+        cd $(Agent.BuildDirectory)/s
         ls
 - stage: DotNetBuild
   displayName: 'Build and Run .NET Core'
