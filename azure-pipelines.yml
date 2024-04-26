@@ -11,7 +11,9 @@ stages:
     steps:
     - script: |
         cd $(Agent.BuildDirectory)/s
-        ls
+        dir
+        cd $(Agent.SourcesDirectory)/s
+        dir
 - stage: DotNetBuild
   displayName: 'Build and Run .NET Core'
   jobs:
