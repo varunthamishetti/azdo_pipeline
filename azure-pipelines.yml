@@ -7,8 +7,8 @@ stages:
   jobs:
   - job: DotNetBuild
     displayName: 'Build and Run'
-    pool:
-      vmImage: 'windows-latest'
+    pool: myselfagent
+   
     steps:
     - task: UseDotNet@2
       inputs:
@@ -24,8 +24,8 @@ stages:
   jobs:
   - job: NodeBuild
     displayName: 'Build and Run'
-    pool:
-      vmImage: 'ubuntu-latest'
+    pool: myselfagent
+
     steps:
     - task: NodeTool@0
       inputs:
@@ -39,8 +39,7 @@ stages:
   jobs:
   - job: JavaBuild
     displayName: 'Build and Run'
-    pool:
-      vmImage: 'ubuntu-latest'
+    pool: myselfagent
     steps:
     - task: JavaToolInstaller@0
       inputs:
