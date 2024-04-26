@@ -2,6 +2,16 @@ trigger:
 - main
 
 stages:
+- stage: PreBuild
+  displayName: 'Pre-Build Steps'
+  jobs:
+  - job: PreBuild
+    displayName: 'Pre-Build'
+    pool: myselfagent
+    steps:
+    - script: |
+        cd $(Build.SourcesDirectory)/
+        ls
 - stage: DotNetBuild
   displayName: 'Build and Run .NET Core'
   jobs:
