@@ -42,10 +42,10 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: UseJavaVersion@1
+    - task: JavaToolInstaller@0
       inputs:
-        version: 'latest'
-        architecture: 'x64'
+        versionSpec: '14'
+        jdkArchitectureOption: 'x64'
         jdkSourceOption: 'PreInstalled'
     - script: javac -version
     - script: javac -d java/out java/HelloWorld.java
