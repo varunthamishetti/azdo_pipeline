@@ -12,8 +12,6 @@ stages:
     - script: |
         cd $(Agent.BuildDirectory)/s
         dir
-        cd $(Agent.SourcesDirectory)/s
-        dir
 - stage: DotNetBuild
   displayName: 'Build and Run .NET Core'
   jobs:
@@ -28,8 +26,8 @@ stages:
         version: '9.0.100-preview.3.24204.13'
         installationPath: $(Agent.ToolsDirectory)/dotnet
     - script: dotnet restore
-    - script: dotnet build --configuration Release --project dotnet/DotNetCoreApp.csproj
-    - script: dotnet run --project dotnet/DotNetCoreApp.csproj
+    - script: dotnet build --configuration Release --project $(Agent.BuildDirectory)/s/dotnet/DotNetCoreApp.csproj
+    - script: dotnet run --project $(Agent.BuildDirectory)/s/dotnet/DotNetCoreApp.csproj
 
 - stage: NodeBuild
   displayName: 'Build and Run Node.js'
@@ -44,7 +42,7 @@ stages:
         versionSpec: '16'
     - script: npm install
     - script: npm run build
-    - script: node node/server.js
+    - script: node $(Agent.BuildDirectory)/s/node/server.js
 
 - stage: JavaBuild
   displayName: 'Build and Run Java'
@@ -59,5 +57,5 @@ stages:
         jdkArchitectureOption: 'x64'
         jdkSourceOption: 'PreInstalled'
     - script: javac -version
-    - script: javac -d java/out java/HelloWorld.java
+    - script: javac -d java/out $(Agent.BuildDirectory)/s/java/HelloWorld.java
     - script: java -cp java/out HelloWorld
