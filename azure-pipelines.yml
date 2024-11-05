@@ -13,7 +13,7 @@ stages:
         cd $(Agent.BuildDirectory)/s
         dir
 - stage: DotNetBuild
-  displayName: 'Build and Run .NET Core'
+  displayName: 'Build and Run ..net core step'
   jobs:
   - job: DotNetBuild
     displayName: 'Build and Run'
